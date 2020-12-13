@@ -18,7 +18,8 @@ env.config();
 const userRoutes = require('./routes/auth_route');
 const adminRoutes = require('./routes/admin/auth_route');
 const categoryRoutes = require('./routes/category_route');
-
+const productRoutes = require('./routes/product_route');
+const cartRoutes = require('./routes/cart_route');
 
 // Change to admin database
 mongoose.connect(
@@ -40,6 +41,8 @@ app.use(express.json());    // add middleware
 app.use('/api', userRoutes);
 app.use('/api', adminRoutes);
 app.use('/api', categoryRoutes);
+app.use('/api', productRoutes);
+app.use('/api', cartRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`server is running on port ${process.env.PORT}`, )
