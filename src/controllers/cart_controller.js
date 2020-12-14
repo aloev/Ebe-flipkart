@@ -19,7 +19,7 @@ exports.addItemtoCart = ( req, res ) => {
                 Cart.findOneAndUpdate({ "user": req.user._id, "cartItems.product": product }, {
 
                     "$set": {
-                        "cartItems": {
+                        "cartItems.$": {
                             ...req.body.cartItems,
                             quantity: item.quantity + req.body.cartItems.quantity
                         }
@@ -40,9 +40,7 @@ exports.addItemtoCart = ( req, res ) => {
                 Cart.findOneAndUpdate({ user: req.user._id }, {
 
                     "$push": {
-                        "cartItems": {
-                            "cartItems": req.body.cartItems
-                        }
+                        "cartItems": req.body.cartItems
                     }
     
                 })
@@ -56,6 +54,8 @@ exports.addItemtoCart = ( req, res ) => {
 
             } 
         }else {
+
+            // Creates new cart
 
             const cart = new Cart({
                 user: req.user._id,

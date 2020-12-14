@@ -5,6 +5,7 @@ const app = express();
 const env = require('dotenv');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path');
 
 //mongodb+srv://mern_ecommerce:<password>@cluster0.rzssv.mongodb.net/test
 
@@ -36,7 +37,7 @@ mongoose.connect(
 
 
 app.use(express.json());    // add middleware
-
+app.use('/public',express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api', userRoutes);
 app.use('/api', adminRoutes);
