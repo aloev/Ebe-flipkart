@@ -6,6 +6,7 @@ const env = require('dotenv');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 
 //mongodb+srv://mern_ecommerce:<password>@cluster0.rzssv.mongodb.net/test
 
@@ -35,7 +36,7 @@ mongoose.connect(
     console.log('Database connected');
 });
 
-
+app.use(cors());
 app.use(express.json());    // add middleware
 app.use('/public',express.static(path.join(__dirname, 'uploads')));
 
