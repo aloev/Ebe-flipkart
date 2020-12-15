@@ -58,7 +58,11 @@ exports.signin = (req, res) => {
                 const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '5d' });
                 
                 const { firstName, lastName, email, role, fullName, _id } = user;
-            
+                
+                // create a cookie
+
+                res.cookie('token', token , { expiresIn: '5d' })
+
                 res.status(200).json({
                     token,
                     user: {
@@ -76,6 +80,14 @@ exports.signin = (req, res) => {
     })
     
 };
+
+
+exports.signout = ( req, res ) => {
+    res.clearCookie('token');
+    res.status(200).json({
+        msg: 'Signout successfully ...'
+    });
+}
 
     // middleware
 
