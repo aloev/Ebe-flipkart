@@ -1,12 +1,13 @@
 
 const User = require('../models/user_model');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 
 exports.signup = (req, res) => {
 
     User.findOne({ email: req.body.email})
-    .exec((error, user) => {
+    .exec( async (error, user) => {
 
         if(user) return res.status(400).json({
             msg: 'User already exists'
@@ -16,16 +17,18 @@ exports.signup = (req, res) => {
             firstName,
             lastName,
             email,
-            password,
-            role
+            password
         } = req.body ;
+
+        const hash_password = await bcrypt.hash(password, 10);
+
 
         const _user = new User ({ 
             firstName, 
             lastName, 
             email, 
-            password,
-            role,
+            hash_password,
+            role: 'user',
             username: Math.random().toString()    
         })
 
@@ -33,7 +36,7 @@ exports.signup = (req, res) => {
 
             if( error ){
                 return res.status(400).json({
-                    msg: 'Something bad boy'
+                    msg: 'Something bad boy user'
                 });
             }
 

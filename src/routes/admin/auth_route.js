@@ -7,9 +7,9 @@ const { signup, signin } =
 const { validateSignupRequest, isRequestValidated, validateSigninRequest } = require('../../validators/auth_validators');
 
 
-router.post('/signin', validateSignupRequest, isRequestValidated, signin);
+router.post('/admin/signin', validateSigninRequest, isRequestValidated, signin);
 
-router.post('/signup', validateSigninRequest,isRequestValidated, signup);
+router.post('/admin/signup', validateSignupRequest,isRequestValidated, signup);
 
 // router.post('/profile' , requireSigning)
 
