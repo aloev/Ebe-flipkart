@@ -22,6 +22,7 @@ const adminRoutes = require('./routes/admin/auth_route');
 const categoryRoutes = require('./routes/category_route');
 const productRoutes = require('./routes/product_route');
 const cartRoutes = require('./routes/cart_route');
+const initialDRoutes = require('./routes/admin/initialData_route');
 
 // Change to admin database
 mongoose.connect(
@@ -45,6 +46,7 @@ app.use('/api', adminRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', cartRoutes);
+app.use('/api', initialDRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log(`server is running on port ${process.env.PORT}`, )
