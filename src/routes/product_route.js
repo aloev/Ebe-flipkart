@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const { requireSignin, adminMiddleware } = require('../common-middleware/index');
-const { createProduct, getProductsBySlug } = require('../controllers/product_controller');
+const { createProduct, getProductsBySlug, getProductDetailsById, deleteProductById, getProducts } = require('../controllers/product_controller');
 const multer = require('multer');
 //const { addCategory, getCategories } = require('../controllers/category_controller');
 const shortid = require('shortid');
@@ -22,7 +22,10 @@ const upload = multer({ storage});
 
 
 router.post('/product/create', requireSignin , adminMiddleware , upload.array('productPicture'), createProduct);
-//router.get('/product/getCategories', getCategories);
 router.get('/products/:slug', getProductsBySlug  );
+router.get('/products/detail/:productId', getProductDetailsById  );   // Just had to change the position this was in
+router.delete('/products/deleteProductById/:productId', deleteProductById  );   
+router.post('/products/getProducts', getProducts  );   
+
 
 module.exports = router;

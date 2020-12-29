@@ -1,6 +1,6 @@
 const Category = require('../../models/category_model');
 const Product = require('../../models/product_model');
-
+const Order = require('../../models/order_model');
 // Cretes Lists
 function createCategories( categories, parentId = null ){
     
@@ -21,6 +21,7 @@ function createCategories( categories, parentId = null ){
             _id: cate._id,
             name: cate.name,
             slug: cate.slug,
+            type: cate.type,
             parentId: cate.parentId,
             children: createCategories( categories, cate._id) // WEIRD
         });
@@ -38,9 +39,13 @@ exports.initialData = async (req, res) => {
                     .populate({path: 'category', select: '_id name'})
                     .exec();
 
+    const orders = await Order.find({})
+        .populate("items.productId", "name")
+        .exec();
     res.status(200).json({
         categories: createCategories(categories),
-        products
+        products,
+        orders
     });
 
 }
