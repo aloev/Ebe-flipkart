@@ -41,6 +41,10 @@ mongoose.connect(
     console.log('Database connected');
 });
 
+// Directorio publico
+
+app.use( express.static(path.join(__dirname, 'public')));
+
 app.use(cors());
 app.use(express.json());    // add middleware
 app.use('/public',express.static(path.join(__dirname, 'uploads')));
